@@ -24,8 +24,10 @@ class TennisGameDefactored1:
                 2 : "Thirty-All",
                 3 : "Forty-All",
             }.get(self.p1points, "Deuce")
-        elif (self.p1points>=4 or self.p2points>=4):
-            minusResult = self.p1points-self.p2points
+            
+        elif (self.p1points >= 4 or self.p2points >= 4):
+            minusResult = self.p1points - self.p2points
+            
             if (minusResult==1):
                 result ="Advantage " + self.player1Name
             elif (minusResult ==-1):
@@ -59,9 +61,9 @@ class TennisGameDefactored2:
         
     def won_point(self, playerName):
         if playerName == self.player1Name:
-            self.P1Score()
+            self.p1points += 1
         else:
-            self.P2Score()
+            self.p2points += 1
     
     def score(self):
         result = ""
@@ -175,4 +177,4 @@ class TennisGameDefactored3:
             return "Advantage " + s if ((self.p1-self.p2)*(self.p1-self.p2) == 1) else "Win for " + s
 
 # NOTE: You must change this to point at the one of the three examples that you're working on!
-TennisGame = TennisGameDefactored1
+TennisGame = TennisGameDefactored2
