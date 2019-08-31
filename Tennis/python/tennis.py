@@ -67,52 +67,55 @@ class TennisGameDefactored2:
     
     def score(self):
         result = ""
+        P1res = ""
+        P2res = ""
         scoreTypes = {
             0: "Love",
             1: "Fifteen",
             2: "Thirty",
             3: "Forty"
         }
-        if self.p1points == self.p2points and self.p1points < 4:
-            result = scoreTypes[self.p1points]
-            result += "-All"
+        scoreDifference = abs(self.p1points - self.p2points)
+        minScore = min(self.p1points, self.p2points)
 
-        if self.p1points == self.p2points and self.p1points > 3:
-            result = "Deuce"
-        
-        P1res = ""
-        P2res = ""
-        if self.p1points > 0 and self.p2points == 0:
-            P2res = "Love"
-            P1res = scoreTypes.get(self.p1points, P1res)            
-            result = P1res + "-Love"
+        if self.p1points == self.p2points:
+            if self.p1points < 4:
+                result = scoreTypes[self.p1points]
+                result += "-All"
+            
+            if self.p1points > 3:
+                result = "Deuce"
 
-        if self.p2points > 0 and self.p1points==0:
-            P1res = "Love"
-            P2res = scoreTypes.get(self.p2points, P2res)
-            result = P1res + "-" + P2res
+        elif minScore == 0 and scoreDifference < 2:
+            if self.p1points > 0:
+                P1res = scoreTypes.get(self.p1points, P1res)
+                result = P1res + "-Love"
+            else:
+                P2res = scoreTypes.get(self.p2points, P2res)
+                result = "Love-" + P2res
         
-        if self.p1points > self.p2points and self.p1points < 4:
+        elif self.p1points > self.p2points and self.p1points < 4:
             P1res = scoreTypes.get(self.p1points, P1res)
             P2res = scoreTypes.get(self.p2points, P2res)
             result = P1res + "-" + P2res
 
-        if self.p2points > self.p1points and self.p2points < 4:
+        elif self.p2points > self.p1points and self.p2points < 4:
             P1res = scoreTypes.get(self.p1points, P1res)
             P2res = scoreTypes.get(self.p2points, P2res)
             result = P1res + "-" + P2res
         
-        if self.p1points > self.p2points and self.p2points >= 3:
+        elif self.p1points - self.p2points == 1 and self.p2points >= 3:
             result = "Advantage " + self.player1Name
         
-        if self.p2points > self.p1points and self.p1points >= 3:
+        elif self.p2points - self.p1points == 1 and self.p1points >= 3:
             result = "Advantage " + self.player2Name
-        
-        scoreDifference = abs(self.p1points-self.p2points)
-        if self.p1points >=4 and self.p2points >= 0 and (self.p1points-self.p2points) >= 2:
+
+        elif self.p1points-self.p2points >= 2:
             result = "Win for " + self.player1Name
-        if self.p2points >=4 and self.p1points >= 0 and (self.p2points-self.p1points) >= 2:
+    
+        elif self.p2points-self.p1points >= 2:
             result = "Win for " + self.player2Name
+        
         return result
     
     def SetP1Score(self, number):
