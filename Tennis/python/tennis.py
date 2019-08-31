@@ -73,45 +73,28 @@ class TennisGameDefactored2:
             2: "Thirty",
             3: "Forty"
         }
-        if (self.p1points == self.p2points and self.p1points < 4):
+        if self.p1points == self.p2points and self.p1points < 4:
             result = scoreTypes[self.p1points]
             result += "-All"
-        if (self.p1points==self.p2points and self.p1points>3):
+
+        if self.p1points == self.p2points and self.p1points > 3:
             result = "Deuce"
         
         P1res = ""
         P2res = ""
         if (self.p1points > 0 and self.p2points==0):
-            if (self.p1points==1):
-                P1res = "Fifteen"
-            if (self.p1points==2):
-                P1res = "Thirty"
-            if (self.p1points==3):
-                P1res = "Forty"
-            
             P2res = "Love"
-            result = P1res + "-" + P2res
+            P1res = scoreTypes.get(self.p1points, P1res)            
+            result = P1res + "-Love"
+
         if (self.p2points > 0 and self.p1points==0):
-            if (self.p2points==1):
-                P2res = "Fifteen"
-            if (self.p2points==2):
-                P2res = "Thirty"
-            if (self.p2points==3):
-                P2res = "Forty"
-            
             P1res = "Love"
+            P2res = scoreTypes.get(self.p2points, P2res)
             result = P1res + "-" + P2res
-        
         
         if (self.p1points>self.p2points and self.p1points < 4):
-            if (self.p1points==2):
-                P1res="Thirty"
-            if (self.p1points==3):
-                P1res="Forty"
-            if (self.p2points==1):
-                P2res="Fifteen"
-            if (self.p2points==2):
-                P2res="Thirty"
+            P1res = scoreTypes.get(self.p1points, P1res)
+            P2res = scoreTypes.get(self.p2points, P2res)
             result = P1res + "-" + P2res
         if (self.p2points>self.p1points and self.p2points < 4):
             if (self.p2points==2):
