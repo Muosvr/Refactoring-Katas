@@ -86,23 +86,37 @@ class TennisGameDefactored2:
             
             if self.p1points > 3:
                 result = "Deuce"
-
-        elif minScore == 0 and scoreDifference < 2:
-            if self.p1points > 0:
-                P1res = scoreTypes.get(self.p1points, P1res)
-                result = P1res + "-Love"
-            else:
-                P2res = scoreTypes.get(self.p2points, P2res)
-                result = "Love-" + P2res
+        
         elif maxScore <= 3:
-            if self.p1points > self.p2points:
-                P1res = scoreTypes.get(self.p1points, P1res)
-                P2res = scoreTypes.get(self.p2points, P2res)
-                result = P1res + "-" + P2res
+            if minScore == 0 and scoreDifference < 2:
+                if self.p1points > 0:
+                    P1res = scoreTypes.get(self.p1points, P1res)
+                    result = P1res + "-Love"
+                else:
+                    P2res = scoreTypes.get(self.p2points, P2res)
+                    result = "Love-" + P2res
             else:
                 P1res = scoreTypes.get(self.p1points, P1res)
                 P2res = scoreTypes.get(self.p2points, P2res)
-                result = P1res + "-" + P2res
+                if self.p1points > self.p2points:
+                    result = P1res + "-" + P2res
+                else:
+                    result = P1res + "-" + P2res
+        # elif minScore == 0 and scoreDifference < 2 and maxScore <= 3:
+        #     if self.p1points > 0:
+        #         P1res = scoreTypes.get(self.p1points, P1res)
+        #         result = P1res + "-Love"
+        #     else:
+        #         P2res = scoreTypes.get(self.p2points, P2res)
+        #         result = "Love-" + P2res
+        # elif maxScore <= 3:
+        #     P1res = scoreTypes.get(self.p1points, P1res)
+        #     P2res = scoreTypes.get(self.p2points, P2res)
+        #     if self.p1points > self.p2points:
+        #         result = P1res + "-" + P2res
+        #     else:
+        #         result = P1res + "-" + P2res
+            
         
         elif self.p1points - self.p2points == 1 and self.p2points >= 3:
             result = "Advantage " + self.player1Name
