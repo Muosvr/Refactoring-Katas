@@ -67,8 +67,6 @@ class TennisGameDefactored2:
     
     def score(self):
         result = ""
-        P1res = ""
-        P2res = ""
         scoreTypes = {
             0: "Love",
             1: "Fifteen",
@@ -78,6 +76,7 @@ class TennisGameDefactored2:
         scoreDifference = abs(self.p1points - self.p2points)
         minScore = min(self.p1points, self.p2points)
         maxScore = max(self.p1points, self.p2points)
+        play1Leads = True if self.p1points > self.p2points else False
 
         if self.p1points == self.p2points:
             if self.p1points < 4:
@@ -88,48 +87,26 @@ class TennisGameDefactored2:
                 result = "Deuce"
         
         elif maxScore <= 3:
-            if minScore == 0 and scoreDifference < 2:
+            P1res = scoreTypes[self.p1points]
+            P2res = scoreTypes[self.p2points]
+
+            if minScore == 0:
                 if self.p1points > 0:
-                    P1res = scoreTypes.get(self.p1points, P1res)
                     result = P1res + "-Love"
                 else:
-                    P2res = scoreTypes.get(self.p2points, P2res)
                     result = "Love-" + P2res
             else:
-                P1res = scoreTypes.get(self.p1points, P1res)
-                P2res = scoreTypes.get(self.p2points, P2res)
                 if self.p1points > self.p2points:
                     result = P1res + "-" + P2res
                 else:
                     result = P1res + "-" + P2res
-        # elif minScore == 0 and scoreDifference < 2 and maxScore <= 3:
-        #     if self.p1points > 0:
-        #         P1res = scoreTypes.get(self.p1points, P1res)
-        #         result = P1res + "-Love"
-        #     else:
-        #         P2res = scoreTypes.get(self.p2points, P2res)
-        #         result = "Love-" + P2res
-        # elif maxScore <= 3:
-        #     P1res = scoreTypes.get(self.p1points, P1res)
-        #     P2res = scoreTypes.get(self.p2points, P2res)
-        #     if self.p1points > self.p2points:
-        #         result = P1res + "-" + P2res
-        #     else:
-        #         result = P1res + "-" + P2res
-            
-        
-        elif self.p1points - self.p2points == 1 and self.p2points >= 3:
-            result = "Advantage " + self.player1Name
-        
-        elif self.p2points - self.p1points == 1 and self.p1points >= 3:
-            result = "Advantage " + self.player2Name
-
-        elif self.p1points-self.p2points >= 2:
-            result = "Win for " + self.player1Name
-    
-        elif self.p2points-self.p1points >= 2:
-            result = "Win for " + self.player2Name
-        
+        else:
+            if scoreDifference == 1:
+                result = "Advantage "
+            else:
+                result = "Win for " 
+            result += self.player1Name if play1Leads else self.player2Name
+       
         return result
     
     def SetP1Score(self, number):
