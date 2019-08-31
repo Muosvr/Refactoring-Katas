@@ -77,6 +77,7 @@ class TennisGameDefactored2:
         }
         scoreDifference = abs(self.p1points - self.p2points)
         minScore = min(self.p1points, self.p2points)
+        maxScore = max(self.p1points, self.p2points)
 
         if self.p1points == self.p2points:
             if self.p1points < 4:
@@ -93,16 +94,15 @@ class TennisGameDefactored2:
             else:
                 P2res = scoreTypes.get(self.p2points, P2res)
                 result = "Love-" + P2res
-        
-        elif self.p1points > self.p2points and self.p1points < 4:
-            P1res = scoreTypes.get(self.p1points, P1res)
-            P2res = scoreTypes.get(self.p2points, P2res)
-            result = P1res + "-" + P2res
-
-        elif self.p2points > self.p1points and self.p2points < 4:
-            P1res = scoreTypes.get(self.p1points, P1res)
-            P2res = scoreTypes.get(self.p2points, P2res)
-            result = P1res + "-" + P2res
+        elif maxScore <= 3:
+            if self.p1points > self.p2points:
+                P1res = scoreTypes.get(self.p1points, P1res)
+                P2res = scoreTypes.get(self.p2points, P2res)
+                result = P1res + "-" + P2res
+            else:
+                P1res = scoreTypes.get(self.p1points, P1res)
+                P2res = scoreTypes.get(self.p2points, P2res)
+                result = P1res + "-" + P2res
         
         elif self.p1points - self.p2points == 1 and self.p2points >= 3:
             result = "Advantage " + self.player1Name
