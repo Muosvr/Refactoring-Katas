@@ -67,15 +67,14 @@ class TennisGameDefactored2:
     
     def score(self):
         result = ""
+        scoreTypes = {
+            0: "Love",
+            1: "Fifteen",
+            2: "Thirty",
+            3: "Forty"
+        }
         if (self.p1points == self.p2points and self.p1points < 4):
-            if (self.p1points==0):
-                result = "Love"
-            if (self.p1points==1):
-                result = "Fifteen"
-            if (self.p1points==2):
-                result = "Thirty"
-            if (self.p1points==3):
-                result = "Forty"
+            result = scoreTypes[self.p1points]
             result += "-All"
         if (self.p1points==self.p2points and self.p1points>3):
             result = "Deuce"
