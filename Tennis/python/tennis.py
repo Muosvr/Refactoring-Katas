@@ -82,40 +82,36 @@ class TennisGameDefactored2:
         
         P1res = ""
         P2res = ""
-        if (self.p1points > 0 and self.p2points==0):
+        if self.p1points > 0 and self.p2points == 0:
             P2res = "Love"
             P1res = scoreTypes.get(self.p1points, P1res)            
             result = P1res + "-Love"
 
-        if (self.p2points > 0 and self.p1points==0):
+        if self.p2points > 0 and self.p1points==0:
             P1res = "Love"
             P2res = scoreTypes.get(self.p2points, P2res)
             result = P1res + "-" + P2res
         
-        if (self.p1points>self.p2points and self.p1points < 4):
+        if self.p1points > self.p2points and self.p1points < 4:
             P1res = scoreTypes.get(self.p1points, P1res)
             P2res = scoreTypes.get(self.p2points, P2res)
             result = P1res + "-" + P2res
-        if (self.p2points>self.p1points and self.p2points < 4):
-            if (self.p2points==2):
-                P2res="Thirty"
-            if (self.p2points==3):
-                P2res="Forty"
-            if (self.p1points==1):
-                P1res="Fifteen"
-            if (self.p1points==2):
-                P1res="Thirty"
+
+        if self.p2points > self.p1points and self.p2points < 4:
+            P1res = scoreTypes.get(self.p1points, P1res)
+            P2res = scoreTypes.get(self.p2points, P2res)
             result = P1res + "-" + P2res
         
-        if (self.p1points > self.p2points and self.p2points >= 3):
+        if self.p1points > self.p2points and self.p2points >= 3:
             result = "Advantage " + self.player1Name
         
-        if (self.p2points > self.p1points and self.p1points >= 3):
+        if self.p2points > self.p1points and self.p1points >= 3:
             result = "Advantage " + self.player2Name
         
-        if (self.p1points>=4 and self.p2points>=0 and (self.p1points-self.p2points)>=2):
+        scoreDifference = abs(self.p1points-self.p2points)
+        if self.p1points >=4 and self.p2points >= 0 and (self.p1points-self.p2points) >= 2:
             result = "Win for " + self.player1Name
-        if (self.p2points>=4 and self.p1points>=0 and (self.p2points-self.p1points)>=2):
+        if self.p2points >=4 and self.p1points >= 0 and (self.p2points-self.p1points) >= 2:
             result = "Win for " + self.player2Name
         return result
     
