@@ -18,15 +18,21 @@ class TennisGameDefactored1:
     def score(self):
         result = ""
         tempScore = 0
+        scoreTypes = {
+            0: "Love",
+            1: "Fifteen",
+            2: "Thirty",
+            3: "Forty",
+        }
         if (self.p1points == self.p2points):
-            result = {
-                0: "Love-All",
-                1: "Fifteen-All",
-                2: "Thirty-All",
-                3: "Forty-All",
-            }.get(self.p1points, "Deuce")
+            result = scoreTypes.get(self.p1points, "")
+            if not result:
+                result = "Deuce"
+            else:
+                result += "-All"
 
-        elif (self.p1points >= 4 or self.p2points >= 4):
+        # elif (self.p1points >= 4 or self.p2points >= 4):
+        elif max(self.p1points, self.p2points) >= 4:
             minusResult = self.p1points - self.p2points
 
             if (minusResult == 1):
@@ -123,4 +129,4 @@ class TennisGameDefactored3:
 
 
 # NOTE: You must change this to point at the one of the three examples that you're working on!
-TennisGame = TennisGameDefactored2
+TennisGame = TennisGameDefactored1
