@@ -31,31 +31,20 @@ class TennisGameDefactored1:
             else:
                 result += "-All"
 
-        # elif (self.p1points >= 4 or self.p2points >= 4):
         elif max(self.p1points, self.p2points) >= 4:
-            minusResult = self.p1points - self.p2points
-
-            if (minusResult == 1):
-                result = "Advantage " + self.player1Name
-            elif (minusResult == -1):
-                result = "Advantage " + self.player2Name
-            elif (minusResult >= 2):
-                result = "Win for " + self.player1Name
+            if abs(self.p1points - self.p2points) == 1:
+                result = "Advantage "
             else:
-                result = "Win for " + self.player2Name
+                result = "Win for "
+
+            if self.p1points > self.p2points:
+                result += self.player1Name
+            else:
+                result += self.player2Name
         else:
-            for i in range(1, 3):
-                if (i == 1):
-                    tempScore = self.p1points
-                else:
-                    result += "-"
-                    tempScore = self.p2points
-                result += {
-                    0: "Love",
-                    1: "Fifteen",
-                    2: "Thirty",
-                    3: "Forty",
-                }[tempScore]
+            p1Score = scoreTypes[self.p1points]
+            p2Score = scoreTypes[self.p2points]
+            result = p1Score + "-" + p2Score
         return result
 
 
@@ -119,14 +108,14 @@ class TennisGameDefactored3:
     def score(self):
         if (self.p1 < 4 and self.p2 < 4):
             p = ["Love", "Fifteen", "Thirty", "Forty"]
-            s = p[self.p1]
-            return s + "-All" if (self.p1 == self.p2) else s + "-" + p[self.p2]
+            score = p[self.p1]
+            return score + "-All" if (self.p1 == self.p2) else score + "-" + p[self.p2]
         else:
             if (self.p1 == self.p2):
                 return "Deuce"
-            s = self.p1N if self.p1 > self.p2 else self.p2N
-            return "Advantage " + s if ((self.p1-self.p2)*(self.p1-self.p2) == 1) else "Win for " + s
+            score = self.p1N if self.p1 > self.p2 else self.p2N
+            return "Advantage " + score if ((self.p1-self.p2)*(self.p1-self.p2) == 1) else "Win for " + score
 
 
 # NOTE: You must change this to point at the one of the three examples that you're working on!
-TennisGame = TennisGameDefactored1
+TennisGame = TennisGameDefactored3
