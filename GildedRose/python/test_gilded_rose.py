@@ -4,10 +4,22 @@ from gilded_rose import Item, update_quality
 testCases = [
     {
         "name": "foo",
+        "sellin": 10,
+        "quality": 5,
+        "results": {
+            1: "foo, 9, 4",
+            2: "foo, 8, 3",
+            4: "foo, 6, 1",
+            5: "foo, 5, 0",
+            6: "foo, 4, 0"
+        }
+    }, {
+        "name": "foo",
         "sellin": 6,
         "quality": 10,
         "results": {
             5: "foo, 1, 5",
+            6: "foo, 0, 4",
             7: "foo, -1, 2",
             8: "foo, -2, 0",
             10: "foo, -4, 0"
@@ -21,7 +33,6 @@ testCases = [
             3: "Aged Brie, 2, 15",
             7: "Aged Brie, -2, 21",
             10: "Aged Brie, -5, 27"
-
         }
     }, {
         "name": "Aged Brie",
@@ -29,7 +40,6 @@ testCases = [
         "quality": 48,
         "results": {
             3: "Aged Brie, 2, 50"
-
         }
     }, {
         "name": "Sulfuras, Hand of Ragnaros",
@@ -65,9 +75,12 @@ class GildedRoseTest(unittest.TestCase):
             for index, item in enumerate(testCases):
                 result = item["results"].get(dayIndex + 1)
                 if result:
-                    # print("testing", items[index])
                     self.assertEquals(result, str(items[index]))
 
 
 if __name__ == "__main__":
+    # items = [Item("foo", 10, 5)]
+    # for i in range(10):
+    #     update_quality(items)
+    #     print(i+1, items[0])
     unittest.main()
