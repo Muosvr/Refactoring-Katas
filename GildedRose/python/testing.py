@@ -1,3 +1,4 @@
 from gilded_rose import Test
 
-Test.take()
+test = Test()
+test.take()

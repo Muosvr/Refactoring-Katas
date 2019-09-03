@@ -1,61 +1,57 @@
 # -*- coding: utf-8 -*-
 
 
-# class Store:
-#     def __init__(self, items):
-#         self.items = items
+class Store:
+    def __init__(self, items):
+        self.items = items
 
-
-def handleAgesBrie(item):
-    if item.sell_in > 0:
-        item.quality += 1
-    else:
-        item.quality += 2
-    item.quality = min(50, item.quality)
-
-
-def handleSulfuras(item):
-    pass
-
-
-def handleRegular(item):
-    if item.sell_in > 0:
-        item.quality -= 1
-    else:
-        item.quality -= 2
-    item.quality = max(item.quality, 0)
-
-
-def handleBackstagePasses(item):
-    tenDays = 10
-    fiveDays = 5
-    dayOf = 0
-
-    if tenDays < item.sell_in:
-        item.quality += 1
-    elif fiveDays < item.sell_in <= tenDays:
-        item.quality += 2
-    elif dayOf < item.sell_in <= fiveDays:
-        item.quality += 3
-    else:
-        item.quality = 0
-    item.quality = min(50, item.quality)
-
-
-def update_quality(items):
-    for item in items:
-        if item.name == "Aged Brie":
-            handleAgesBrie(item)
-        elif item.name == "Backstage passes to a TAFKAL80ETC concert":
-            handleBackstagePasses(item)
-        elif item.name == "Sulfuras, Hand of Ragnaros":
-            handleSulfuras(item)
+    def _handleAgesBrie(self, item):
+        if item.sell_in > 0:
+            item.quality += 1
         else:
-            handleRegular(item)
+            item.quality += 2
+        item.quality = min(50, item.quality)
 
-        if item.name != "Sulfuras, Hand of Ragnaros":
-            item.sell_in = item.sell_in - 1
-    return items
+    def _handleSulfuras(self, item):
+        pass
+
+    def _handleRegular(self, item):
+        if item.sell_in > 0:
+            item.quality -= 1
+        else:
+            item.quality -= 2
+        item.quality = max(item.quality, 0)
+
+    def _handleBackstagePasses(self, item):
+        tenDays = 10
+        fiveDays = 5
+        dayOf = 0
+
+        if tenDays < item.sell_in:
+            item.quality += 1
+        elif fiveDays < item.sell_in <= tenDays:
+            item.quality += 2
+        elif dayOf < item.sell_in <= fiveDays:
+            item.quality += 3
+        else:
+            item.quality = 0
+        item.quality = min(50, item.quality)
+
+    def update_quality(self):
+        items = self.items
+        for item in items:
+            if item.name == "Aged Brie":
+                self._handleAgesBrie(item)
+            elif item.name == "Backstage passes to a TAFKAL80ETC concert":
+                self._handleBackstagePasses(item)
+            elif item.name == "Sulfuras, Hand of Ragnaros":
+                self._handleSulfuras(item)
+            else:
+                self._handleRegular(item)
+
+            if item.name != "Sulfuras, Hand of Ragnaros":
+                item.sell_in = item.sell_in - 1
+        return items
 
 
 class Item:

@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 import unittest
-from gilded_rose import Item, update_quality
+from gilded_rose import Store, Item
 testCases = [
     {
         "name": "foo",
@@ -70,8 +70,9 @@ testCases = [
 class GildedRoseTest(unittest.TestCase):
     def testRegular(self):
         items = [Item(x['name'], x['sellin'], x['quality']) for x in testCases]
+        store = Store(items)
         for dayIndex in range(20):
-            update_quality(items)
+            store.update_quality()
             for index, item in enumerate(testCases):
                 result = item["results"].get(dayIndex + 1)
                 if result:
