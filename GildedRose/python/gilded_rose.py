@@ -37,6 +37,10 @@ class Store:
             item.quality = 0
         item.quality = min(50, item.quality)
 
+    def _update_sell_in(self, item):
+        if item.name != "Sulfuras, Hand of Ragnaros":
+            item.sell_in = item.sell_in - 1
+
     def update_quality(self):
         items = self.items
         for item in items:
@@ -49,8 +53,7 @@ class Store:
             else:
                 self._handle_regular(item)
 
-            if item.name != "Sulfuras, Hand of Ragnaros":
-                item.sell_in = item.sell_in - 1
+            self._update_sell_in(item)
         return items
 
 
