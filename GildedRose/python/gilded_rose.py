@@ -1,9 +1,10 @@
 # -*- coding: utf-8 -*-
 
 
-# def handleAgesBrie(item):
-#     if item.quality < 50:
-#         item.quality += 1
+# class Store:
+#     def __init__(self, items):
+#         self.items = items
+
 
 def handleAgesBrie(item):
     if item.sell_in > 0:
@@ -43,21 +44,17 @@ def handleBackstagePasses(item):
 
 def update_quality(items):
     for item in items:
-        if item.name != "Aged Brie" and item.name != "Backstage passes to a TAFKAL80ETC concert":
-            if item.name != "Sulfuras, Hand of Ragnaros":
-                handleRegular(item)
+        if item.name == "Aged Brie":
+            handleAgesBrie(item)
+        elif item.name == "Backstage passes to a TAFKAL80ETC concert":
+            handleBackstagePasses(item)
+        elif item.name == "Sulfuras, Hand of Ragnaros":
+            handleSulfuras(item)
         else:
-            if item.name == "Backstage passes to a TAFKAL80ETC concert":
-                handleBackstagePasses(item)
-            else:
-                handleAgesBrie(item)
+            handleRegular(item)
 
         if item.name != "Sulfuras, Hand of Ragnaros":
             item.sell_in = item.sell_in - 1
-
-        # if item.sell_in < 0:
-        #     if item.name == "Aged Brie":
-        #         handleAgesBrie(item)
     return items
 
 
