@@ -42,19 +42,18 @@ class Store:
             item.sell_in = item.sell_in - 1
 
     def update_quality(self):
-        items = self.items
-        for item in items:
-            if item.name == "Aged Brie":
-                self._handle_ages_brie(item)
-            elif item.name == "Backstage passes to a TAFKAL80ETC concert":
-                self._handle_backstage_passes(item)
-            elif item.name == "Sulfuras, Hand of Ragnaros":
-                self._handle_sulfuras(item)
-            else:
-                self._handle_regular(item)
+        handling_options = {
+            "Aged Brie": self._handle_ages_brie,
+            "Backstage passes to a TAFKAL80ETC concert": self._handle_backstage_passes,
+            "Sulfuras, Hand of Ragnaros": self._handle_sulfuras,
+        }
 
+        for item in self.items:
+            update_method = handling_options.get(item.name,
+                                                 self._handle_regular)
+            update_method(item)
             self._update_sell_in(item)
-        return items
+        return self.items
 
 
 class Item:
