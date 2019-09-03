@@ -5,24 +5,24 @@ class Store:
     def __init__(self, items):
         self.items = items
 
-    def _handleAgesBrie(self, item):
+    def _handle_ages_brie(self, item):
         if item.sell_in > 0:
             item.quality += 1
         else:
             item.quality += 2
         item.quality = min(50, item.quality)
 
-    def _handleSulfuras(self, item):
+    def _handle_sulfuras(self, item):
         pass
 
-    def _handleRegular(self, item):
+    def _handle_regular(self, item):
         if item.sell_in > 0:
             item.quality -= 1
         else:
             item.quality -= 2
         item.quality = max(item.quality, 0)
 
-    def _handleBackstagePasses(self, item):
+    def _handle_backstage_passes(self, item):
         tenDays = 10
         fiveDays = 5
         dayOf = 0
@@ -41,13 +41,13 @@ class Store:
         items = self.items
         for item in items:
             if item.name == "Aged Brie":
-                self._handleAgesBrie(item)
+                self._handle_ages_brie(item)
             elif item.name == "Backstage passes to a TAFKAL80ETC concert":
-                self._handleBackstagePasses(item)
+                self._handle_backstage_passes(item)
             elif item.name == "Sulfuras, Hand of Ragnaros":
-                self._handleSulfuras(item)
+                self._handle_sulfuras(item)
             else:
-                self._handleRegular(item)
+                self._handle_regular(item)
 
             if item.name != "Sulfuras, Hand of Ragnaros":
                 item.sell_in = item.sell_in - 1
